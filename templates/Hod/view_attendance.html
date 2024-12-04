@@ -1,0 +1,137 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<!--css-->
+<link rel="stylesheet" href="{% static 'style/hod_styles/view_attendance.css' %}">
+
+
+<div class="card" >
+  <div class="card-body">
+      <h1>
+            <b style="color: #1068c1;">Attendance</b>
+        </h1>
+        <p>
+            <b style="color: #1068c1;">Dashboard</b>&nbsp;/&nbsp;View Attendance</p>
+    <div class="add_course">
+        <br>
+        <!--the below div is used to show the alert, success, warning message-->
+        {% include 'includes/messages.html' %}
+
+        {% if action is None %}
+        <form action="?action=view_attendance" method="post">
+          {% csrf_token%}
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Subject</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="subject_id" name="subject_id" required>
+                <option selected>Choose...</option>
+                {% for i in subject %}
+                  <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Session Year</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="session_year_id" name="session_year_id" required>
+                <option selected>Choose...</option>
+                {% for i in session_year %}
+                  <option value="{{i.id}}">{{i.session_start}} to {{i.session_end}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+           <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Attendance Date</label>
+             <input type="date" class="form-control" name="attendance_date" style="margin-left: 15px;width: 80.35%;">
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Show Student</button>
+            </div>
+          </div>
+        </form>
+
+        {% else %}
+          <form action="{% url 'save_attendances' %}" method="post">
+            {% csrf_token%}
+
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Subject</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="sub_id" name="sub_id" disabled>
+                    <option value="{{get_subject.id}}">{{get_subject}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Session Year</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="session_year_id" disabled>
+                    <option value="{{get_session_year.id}}">{{get_session_year}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Attendance Date</label>
+              <div class="col-sm-10">
+                <input type="date" class="form-control" id="attendance_date" name="attendance_date" value="{{attendance_date}}" disabled>
+              </div>
+            </div>
+            <br>
+
+            <!--table to view attendance-->
+            <div class="form-group row">
+              <div class="container">
+                <div class="card" style="margin-left: 0px;width: 1023px;">
+                  <div class="card-body">
+                      <h2 style="color: #1068c1;">Present Students</h2>
+
+                      <!--the below div is used to show the alert, success, warning message-->
+                      {% include 'includes/messages.html' %}
+
+                      <div class="table-container">
+                          <table class="table">
+                        <thead style="background:#80808036;">
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                          </tr>
+                        </thead>
+                      <tbody>
+                      {% for i in attendance_report %}
+                        <tr>
+                          <th class="row_id" scope="row">{{i.student_id.admin.id}}</th>
+                          <td>
+                              <div style="display: flex; align-items: center;margin-top:-13px;">
+                                    <!-- Check if student profile_pic exists before accessing the URL -->
+                                    {% if i.student_id.admin.profile_pic %}
+                                    <img src="{{ i.student_id.admin.profile_pic.url }}" alt="Profile Pic" style="width: 54px;height: 51px;border-radius: 50%;object-fit: cover;margin-right: 10px;">
+                                    {% else %}
+                                    <img src="{% static 'images/user.png' %}" alt="Default Profile Pic" style="width: 54px;height: 51px;border-radius: 50%;object-fit: cover;margin-right: 10px;">
+                                    {% endif %}
+                                    <p style="margin-bottom: 0px;">{{i.student_id.admin.first_name}} &nbsp;{{i.student_id.admin.last_name}}</p>
+                              </div>
+                          </td>
+                          <td>{{i.student_id.admin.email}}</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                      </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

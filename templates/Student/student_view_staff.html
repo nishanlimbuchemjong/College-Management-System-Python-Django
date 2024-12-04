@@ -1,0 +1,117 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<!--css link-->
+<link rel="stylesheet" href="{% static 'style/student_styles/view_staff.css' %}">
+
+<div class="container">
+  <div class="card" >
+    <div class="card-body">
+        <h1>
+            <b style="color: #1068c1;">Teachers</b>
+        </h1>
+        <p>
+            <b style="color: #1068c1;">Dashboard</b>&nbsp;/&nbsp;View Teachers</p>
+        <div class="container mt-3">
+            <div class="row">
+              <div class="col-md-6">
+              </div>
+              <div class="col-md-6">
+                <!-- Search Box -->
+                <form class="form-inline" style="margin-left: 54px;">
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="search" class="form-control" placeholder="Search..." name="search" id="search" style="border-top-left-radius: 20px;border-bottom-left-radius: 20px;}">
+                  </div>
+                  <button type="submit" class="btn btn-primary mb-2" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;}">Search</button>
+                </form>
+              </div>
+            </div>
+        </div>
+        <br>
+        <!--the below div is used to show the alert, success, warning message-->
+        {% include 'includes/messages.html' %}
+
+        <div class="card" style="margin-top:0px;">
+            <div class="card-body">
+                <h3>All Teachers List</h3>
+                <div class="table-container">
+                    <table class="table">
+                      <thead style="background:#80808036;">
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Gender</th>
+                          <th scope="col">Address</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in page.object_list %}
+                          <tr>
+                            <th class="row_id" scope="row">{{i.id}}</th>
+                            <td>
+                              <div style="display: flex; align-items: center;margin-top:-13px;">
+                                        <!-- Check if student profile_pic exists before accessing the URL -->
+                                        {% if i.admin.profile_pic %}
+                                        <img src="{{ i.admin.profile_pic.url }}" alt="Profile Pic" style="width: 54px;
+                                                height: 51px;
+                                                border-radius: 50%;
+                                                object-fit: cover;
+                                                margin-right: 10px;">
+                                        {% else %}
+                                        <img src="/media/profile_pic/profile.png" alt="Default Profile Pic" style="width: 54px;
+                                                height: 51px;
+                                                border-radius: 50%;
+                                                object-fit: cover;
+                                                margin-right: 10px;">
+                                        {% endif %}
+                                        <p style="margin-bottom: 0px;">{{i.admin.first_name}}&nbsp;{{i.admin.last_name}}</p>
+                                    </div>
+                            </td>
+                            <td>{{i.admin.email}}</td>
+                            <td>{{i.gender}}</td>
+                            <td>{{i.address}}</td>
+
+                          </tr>
+                        {% empty %}
+                            <td colspan="10" style="text-align:center">
+                                <span class="text-danger">
+                                    <b>No data found</b>
+                                </span>
+                            </td>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+                <!-- pagination-->
+
+                <nav aria-label="..." style="justify-content: center;margin-top: 11px;background: white;">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      {% if page.has_previous %}
+                        <a class="page-link" href="{% url 'student_view_staffs' %}?page={{page.previous_page_number}}" style="color: #007bff;">Previous</a>
+                      {% endif%}
+                    </li>
+                    {% for num_page in page.paginator.page_range %}
+                      {% if page.number == num_page %}
+                        <li class="page-item active">
+                          <a class="page-link" href="#" style="color:white;">{{ num_page }}</a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if page.has_next%}
+                        <li class="page-item">
+                          <a class="page-link" href="{% url 'student_view_staffs'%}?page={{page.next_page_number}}" style="color:#007bff;">Next</a>
+                        </li>
+                    {% endif%}
+                  </ul>
+                </nav>
+                <p style="text-align:center;margin-bottom:0px;margin-top:-4px;">Page: {{page.number}}/{{page.paginator.num_pages}}</p>
+
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

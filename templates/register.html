@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block%}
+<div class="col-lg-6">
+    <h2>Register as an Admin</h2>
+    <br>
+    {% if messages%}
+        {% for message in messages%}
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 74%;margin-left: 194px;">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            {% endif%}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width: 74%;margin-left: 194px;">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            {% endif%}
+        {% endfor%}
+    {% endif%}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="first_name">Fist Name</label>
+            <input type="text" id="first_name" name="first_name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="admin_email">Email</label>
+            <input type="email" id="admin_email" name="admin_email" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="admin_password">Password</label>
+            <input type="password" id="admin_password" name="admin_password" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="admin_password">Confirm Password</label>
+            <input type="password" id="admin_confirm_password" name="admin_confirm_password" class="form-control" required>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" name="submit" style="border-radius: 20px;">Register as an Admin</button>
+    </form>
+</div>
+{% endblock %}

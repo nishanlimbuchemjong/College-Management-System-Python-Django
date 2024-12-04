@@ -1,0 +1,14 @@
+.box-info li
+	{
+		width: 238px;
+	}
+	/* New custom class to adjust the width */
+	.custom-card {
+		width: 100%; /* Set the width to 100% */
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	h2, h3, h5 {
+	color: #1068c1;
+	}

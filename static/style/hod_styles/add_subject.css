@@ -1,0 +1,11 @@
+.card{
+    width: 1115px;
+    margin-left: 53px;
+    margin-top: 2rem;
+  }
+  .btn{
+    border-radius: 20px;
+  }
+  h2, h3, h5{
+    color:#1068c1;;
+  }

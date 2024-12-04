@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<!--css-->
+<link rel="stylesheet" href="{% static 'style/hod_styles/edit_session.css' %}">
+
+<div class="card" >
+  <div class="card-body">
+    <div class="add_course">
+        <h3><b>Edit Session</b></h3>
+        <br>
+        <!--the below div is used to show the alert, success, warning message-->
+        {% include 'includes/messages.html' %}
+
+        <form action="{% url 'update_sessions' %}" method="post">
+          {% csrf_token%}
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Session Year Start</label>
+            <div class="col-sm-10">
+              <input type="date" class="form-control" name="session_year_start" value="{% for i in session %}{{i.session_start}}{% endfor%}" required>
+              <input type="text" class="form-control" name="session_id" value="{% for i in session %}{{i.id}}{% endfor%}" hidden required>
+            </div>
+          </div>
+           <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Session Year End</label>
+            <div class="col-sm-10">
+              <input type="date" class="form-control" name="session_year_end" value="{% for i in session %}{{i.session_end}}{% endfor%}" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Update Session</button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

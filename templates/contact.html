@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+<section id="contact" class="bg-light py-5">
+<div class="container">
+            <div class="row">
+                <!-- Left column for the image -->
+                <div class="col-lg-6" style="background-color: #0069d9;;">
+<!--                    <img src="{% static 'images/background_color.jpeg' %}" style="height: 460px;width: 92%;" alt="login">-->
+                    <div class="image-text">
+                        <!-- Text on top of the image -->
+                        <h1>Get in Touch</h1>
+                        <br>
+                        <p>Want to get in touch? We'd love to hear from you. Here's how you can reach us..</p>
+                        <br>
+                        <p>phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +997 9803012485</p>
+                        <p>email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; studentmanagementsystem@gmail.com</p>
+                        <p>website &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; www.studentmanagementsystem.com</p>
+                        <p>facebook &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://www.facebook.com/cms</p>
+                        <p>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nakhudol-25, lalitpur, Nepal</p>
+                    </div>
+                </div>
+
+                <!-- Right column for the registration form -->
+                <div class="col-lg-6">
+                    <h2>Contact Us</h2>
+                    <p>If you have any questions, feel free to contact us.</p>
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact_email">Your Email</label>
+                            <input type="email" id="contact_email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" class="form-control" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="border-radius: 20px;" name="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+     </section>
+{% endblock %}

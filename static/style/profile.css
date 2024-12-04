@@ -1,0 +1,15 @@
+  .update_profile{
+    background: white;
+  }
+  .card{
+    width: 63rem;
+    margin-left: 27px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .btn{
+    border-radius: 20px;
+  }
+  h2, h3, h5{
+    color:#1068c1;;
+  }

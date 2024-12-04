@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login" style="width: 509px;">
+
+    <h2 class="text-left" style="font-size: 3rem;color: #1770f3;">
+        Sign in</h2>
+    {% if messages%}
+        {% for message in messages%}
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 98%;margin-left: 6px;">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            {% endif%}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width: 98%;margin-left: 6px;">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            {% endif%}
+        {% endfor%}
+    {% endif%}
+    <form class="needs-validation" action="{% url 'doLogin' %}" method="post">
+        {% csrf_token%}
+        <div class="form-group ">
+
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" type="email" name="email" id="email" style="border-radius: 15px;" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-control" type="password" id="password" name="password" style="border-radius: 15px;" required>
+        </div>
+        <input class="btn btn-primary w-100" type="submit" value="Sign in" style="border-radius: 19px;">
+        <a href="{% url 'password_reset' %}">
+            <span style="font-size:15px;margin-left: 190px;color: #1075c1;"><b>Forgot Password?</b></span>
+        </a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<!--css-->
+<link rel="stylesheet" href="{% static 'style/hod_styles/add_subject.css' %}">
+
+<div class="card" >
+  <div class="card-body">
+    <div class="add_course">
+        <h3>Add Subject</h3>
+        <br>
+        <!--the below div is used to show the alert, success, warning message-->
+        {% include 'includes/messages.html' %}
+
+        <form action="{% url 'add_subjects' %}" method="post">
+          {% csrf_token%}
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Subject Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="subject_name" name="subject_name" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Course</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="course_id" name="course_id" required>
+                <option selected>Choose...</option>
+                {% for i in course %}
+                  <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Teachers</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="staff_id" name="staff_id" required>
+                <option selected>Choose...</option>
+                {% for i in staff %}
+                  <option value="{{i.id}}">{{i.admin.first_name}} &nbsp;{{i.admin.last_name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Add Subject</button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

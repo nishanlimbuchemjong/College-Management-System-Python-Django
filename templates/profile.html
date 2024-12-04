@@ -1,0 +1,131 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+ <!--css-->
+    <link rel="stylesheet" href="{% static 'style/profile.css' %}">
+<div class="card" >
+  <div class="card-body">
+    <div class="update_profile">
+
+    <h3>Profile Update</h3>
+      <br>
+      <!--        the below div is used to show the alert message in the login form-->
+        {% if messages%}
+            {% for message in messages%}
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{message}}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                {% endif%}
+
+            {% endfor%}
+        {% endif%}
+    <form action="{% url 'profile_update' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token%}
+      <div class="form-group row">
+        <label for="profile_pic" class="col-sm-2 col-form-label">Profile Pic</label>
+        <div class="col-sm-10">
+          <input type="file" class="form-control" id="profile_pic"name="profile_pic">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="first_name" name="first_name" value="{{user.first_name}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="last_name" name="last_name" value="{{user.last_name}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="email" name="email" value="{{user.email}}" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="username" class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="username" name="username" value="{{user.username}}" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="password" name="password" placeholder="Enter if you want to change">
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </div>
+      </div>
+    </form>
+  </div>
+<!--    <h5 class="card-title">Card title</h5>-->
+<!--    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
+<!--    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--    <a href="#" class="card-link">Card link</a>-->
+<!--    <a href="#" class="card-link">Another link</a>-->
+  </div>
+</div>
+<!--  <div class="update_profile">-->
+<!--    -->
+<!--    <h3>Profile Update</h3>-->
+<!--    <form>-->
+<!--      <div class="form-group row">-->
+<!--        <label for="profile_pic" class="col-sm-2 col-form-label">Profile Pic</label>-->
+<!--        <div class="col-sm-10">-->
+<!--          <input type="file" class="form-control" id="profile_pic">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group row">-->
+<!--        <label for="first_name" class="col-sm-2 col-form-label">First Name</label>-->
+<!--        <div class="col-sm-10">-->
+<!--          <input type="text" class="form-control" id="first_name">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group row">-->
+<!--        <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>-->
+<!--        <div class="col-sm-10">-->
+<!--          <input type="text" class="form-control" id="last_name">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group row">-->
+<!--        <label for="email" class="col-sm-2 col-form-label">Email</label>-->
+<!--        <div class="col-sm-10">-->
+<!--          <input type="text" class="form-control" id="email">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group row">-->
+<!--        <label for="username" class="col-sm-2 col-form-label">Username</label>-->
+<!--        <div class="col-sm-10">-->
+<!--          <input type="text" class="form-control" id="username">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group row">-->
+<!--        <label for="password" class="col-sm-2 col-form-label">Password</label>-->
+<!--        <div class="col-sm-10">-->
+<!--          <input type="text" class="form-control" id="password" placeholder="Enter if you want to change">-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+<!--      <div class="form-group row">-->
+<!--        <div class="col-sm-10">-->
+<!--          <button type="submit" class="btn btn-primary">Update Profile</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+
+{% endblock %}

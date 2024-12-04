@@ -1,0 +1,27 @@
+
+ .card{
+    width: 1068px;
+    margin-left: 53px;
+    margin-top: 2rem;
+  }
+  .table-container {
+    overflow: auto; /* Enable vertical and horizontal scrolling */
+    max-height: 300px; /* Set a maximum height for vertical scrolling */
+  }
+  .table{
+  font-size:16px;
+  }
+  .table th{
+  padding-right: 38px;
+  }
+  .table .row_id{
+  padding-top:21px;
+  }
+  .table td{
+  padding-top:21px;
+  padding-right: 6px;
+  padding-button: 45px;
+  }
+  .btn{
+    border-radius: 20px;
+  }

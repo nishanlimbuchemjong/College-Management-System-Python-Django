@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load active_link_tags %}
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!-- My CSS -->
+	<link rel="stylesheet" href="/static/css/base.css">
+	<link rel="stylesheet" href="{% static 'style/index.css' %}">
+
+	<!-- Bootstrap css -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<script src="{% static 'hod/Students/script.js' %}"></script>
+
+<!--	for fontawasome-->
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+
+	<title>College Management System</title>
+
+
+</head>
+<body>
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="{% url 'hod_home' %}" class="brand">
+<!--			<i class='bx bxs'></i>-->
+<!--			<span class="text">CMS</span>-->
+			<p style="margin-left: 27px;margin-top: 77px;font-size:4rem;">
+				CMS
+			</p>
+		</a>
+
+		{% if user.user_type == '1'%}
+		<ul class="side-menu top">
+			<li class="{% active_link 'hod_home' 'active' %}">
+				<a href="{% url 'hod_home' %}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+
+			<li class="{% active_link 'view_attendances' 'active' %}">
+				<a href="{% url 'view_attendances' %}">
+					<i class='bx bx-user-check' ></i>
+					<span class="text">Attendance</span>
+				</a>
+			</li>
+
+			<li class="{% active_link 'view_staffs' 'active' %}">
+				<a href="{% url 'view_staffs' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Teachers</span>
+				</a>
+			</li>
+
+			<li class="{% active_link 'view_students' 'active' %}">
+				<a href="{% url 'view_students' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Students</span>
+				</a>
+
+			</li>
+
+			<li class="{% active_link 'view_courses' 'active' %}">
+				<a href="{% url 'view_courses' %}">
+					<i class='bx bxs-book' ></i>
+					<span class="text">Courses</span>
+				</a>
+			</li>
+			<li class="{% active_link 'view_subjects' 'active' %}">
+				<a href="{% url 'view_subjects' %}">
+					<i class='bx bxs-book' ></i>
+					<span class="text">Subjects</span>
+				</a>
+			</li>
+			<li class="{% active_link 'view_sessions' 'active' %}">
+				<a href="{% url 'view_sessions' %}">
+					<i class='bx bxs-calendar' ></i>
+					<span class="text">Session Year</span>
+				</a>
+			</li>
+			<li class="{% active_link 'view_contacts' 'active' %}">
+				<a href="{% url 'view_contacts' %}">
+					<i class='bx bxs-contact' ></i>
+					<span class="text">Contacts</span>
+				</a>
+			</li>
+
+		</ul>
+<!--		<ul class="side-menu">-->
+<!--			<li>-->
+<!--				<a href="#">-->
+<!--					<i class='bx bxs-cog' ></i>-->
+<!--					<span class="text">Settings</span>-->
+<!--				</a>-->
+<!--			</li>-->
+<!--			<li>-->
+<!--				<a href="#" class="logout">-->
+<!--					<i class='bx bxs-log-out-circle' ></i>-->
+<!--					<span class="text">Logout</span>-->
+<!--				</a>-->
+<!--			</li>-->
+<!--		</ul>-->
+		{% elif user.user_type == '2'%}
+		<ul class="side-menu top">
+			<li class="{% active_link 'staff_home' 'active' %}">
+				<a href="{% url 'staff_home' %}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+
+			<li class="{% active_link 'feature_view_students' 'active' %}">
+				<a href="{% url 'feature_view_students' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">View Students</span>
+				</a>
+			</li>
+			<li class="{% active_link 'view_staff_attendances' 'active' %}">
+				<a href="{% url 'view_staff_attendances' %}">
+					<i class='bx bx-user-check'></i>
+					<span class="text">Attendance</span>
+				</a>
+			</li>
+			<li class="{% active_link 'feature_view_courses' 'active' %}">
+				<a href="{% url 'feature_view_courses' %}">
+					<i class='bx bxs-book' ></i>
+					<span class="text">View Courses</span>
+				</a>
+			</li>
+			<li class="{% active_link 'feature_view_staffs' 'active' %}">
+				<a href="{% url 'feature_view_staffs' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">View Teachers</span>
+				</a>
+			</li>
+
+			<li class="{% active_link 'feature_view_subjects' 'active' %}">
+				<a href="{% url 'feature_view_subjects' %}">
+					<i class='bx bxs-book' ></i>
+					<span class="text">View Subjects</span>
+				</a>
+			</li>
+
+			<li class="{% active_link 'feature_view_sessions' 'active' %}">
+				<a href="{% url 'feature_view_sessions' %}">
+					<i class='bx bxs-calendar' ></i>
+					<span class="text">View Session year</span>
+				</a>
+			</li>
+		</ul>
+
+		{% else%}
+		<ul class="side-menu top">
+			<li class="{% active_link 'student_home' 'active' %}">
+				<a href="{% url 'student_home' %}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="{% active_link 'student_view_attendance' 'active' %}">
+				<a href="{% url 'student_view_attendance' %}">
+					<i class='bx bx-user-check'></i>
+					<span class="text">View Attendance</span>
+				</a>
+			</li>
+			<li class="{% active_link 'student_view_students' 'active' %}">
+				<a href="{% url 'student_view_students' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">View Students</span>
+				</a>
+
+			</li>
+			<li class="{% active_link 'student_view_courses' 'active' %}">
+				<a href="{% url 'student_view_courses' %}">
+					<i class='bx bxs-book' ></i>
+					<span class="text">View Courses</span>
+				</a>
+			</li>
+			<li class="{% active_link 'student_view_staffs' 'active' %}">
+				<a href="{% url 'student_view_staffs' %}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">View Teachers</span>
+				</a>
+			</li>
+			<li class="{% active_link 'student_view_subjects' 'active' %}">
+				<a href="{% url 'student_view_subjects' %}">
+					<i class='bx bxs-book' ></i>
+					<span class="text">View Subjects</span>
+				</a>
+			</li>
+			<li class="{% active_link 'student_view_sessions' 'active' %}">
+				<a href="{% url 'student_view_sessions' %}">
+					<i class='bx bxs-book' ></i>
+					<span class="text">View Session Year</span>
+				</a>
+			</li>
+		</ul>
+		{% endif%}
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<div class="container mt-5" style="margin-top: 1rem!important;">
+				<div class="row">
+					<!-- First Column: Welcome Message -->
+					<div class="col-md-6">
+						<!--profile-->
+						<div class="top-nav-search">
+							<h4 style="margin-left: -42px;">
+							<i class='bx bx-menu' ></i>
+
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<strong>Welcome</strong>&nbsp;
+								<span style="color: #1068c1;">{{user.first_name}} {{user.last_name}}</span>&nbsp;!
+							</h4>
+						</div>
+					</div>
+
+					<!-- Second Column: Profile Picture -->
+					<div class="col-md-6">
+						{% if user.profile_pic == '' %}
+							<img src="{% static 'images/user.png' %}" class="user-pic" onclick="toggleMenu()">
+						{% else%}
+							<img src="{{user.profile_pic.url}}" class="user-pic" onclick="toggleMenu()" style="width: 39px;height: 36px;border-radius: 50%;object-fit: cover;">
+						{% endif%}
+						<div class="sub-menu-wrap" id="subMenu" style="box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 30px 0 rgba(0, 0, 0, 0.19);background: white;">
+							<div class="user-info">
+								{% if user.profile_pic == '' %}
+									<img src="{% static 'images/user.png' %}" alt="user">
+								{% else%}
+									<img src="{{user.profile_pic.url}}" alt="user" style="width: 49px;height: 48px;border-radius: 50%;object-fit: cover;">
+								{% endif%}
+								<h3 style="font-size: 20px;margin-left:0px;"><b>{{user.username}}</b></h3><br/>
+								{% if user.user_type == '1' %}
+								<p style="margin-top: 52px;margin-left: -54px;">( HOD )</p>
+								{% elif user.user_type == '2' %}
+								<p style="margin-top: 52px;margin-left: -90px;">( Staff )</p>
+								{% else %}
+								<p style="margin-top: 52px;margin-left: -48px;">( Student )</p>
+								{% endif %}
+							</div>
+							<hr style="margin-top: -7px;">
+							<a href="{% url 'profile' %}" class="sub-menu-link" style="margin-left: 6px;">
+								<img src="/static/images/edit_profile.png" alt="profile" style="width: 46px;height: 35px;border-radius: 50%;object-fit: cover;">
+								<p style="margin-bottom: 0px;margin-left: 7px;">Edit Profile</p>
+								<span> > </span>
+							</a>
+							<a href="{% url 'Logout' %}" class="sub-menu-link" style="margin-left: 6px;">
+								<img src="/static/images/logout.png" alt="logout" style="width: 46px;height: 35px;border-radius: 50%;object-fit: cover;">
+								<p style="margin-bottom: 0px;margin-left: 7px;">Logout</p>
+								<span> > </span>
+							</a>
+						</div>
+			<!--			end of profile hover-->
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<!-- NAVBAR -->
+
+		<!-- main -->
+		<main>
+			{% block content %}
+
+			{% endblock %}
+			<br><br><br><br>
+			<footer>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<p style="margin-bottom: -7px;">&copy; 2023 College Management System. All rights reserved.</p>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</main>
+		<!-- end main -->
+	</section>
+	<!-- CONTENT -->
+
+
+<!--profile hove script-->
+	<script src="script.js"></script>
+	<script>
+		let subMenu = document.getElementById('subMenu');
+		function toggleMenu() {
+			subMenu.classList.toggle("open-menu");
+		}
+	</script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

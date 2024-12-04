@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<!--css-->
+<link rel="stylesheet" href="{% static 'style/hod_styles/edit_course.css' %}">
+
+
+<div class="card" >
+  <div class="card-body">
+    <div class="add_course">
+        <h3><b>Edit Course</b></h3>
+        <br>
+        <!--the below div is used to show the alert, success, warning message-->
+        {% include 'includes/messages.html' %}
+
+        <form action="{% url 'update_courses'%}" method="post">
+          {% csrf_token%}
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Course Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" name="name" value="{{course.name}}">
+              <input type="text" class="form-control" id="course_id" name="course_id" value="{{course.id}}" hidden>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Update Course</button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

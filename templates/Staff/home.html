@@ -1,0 +1,350 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<!-- Include Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!--css-->
+<link rel="stylesheet" href="{% static 'style/staff_styles/home.css' %}">
+
+	<div class="head-title">
+		<div class="left">
+			<h1 style="color: #1068c1;">Dashboard</h1>
+			<button type="button" class="btn btn-light" style="border-radius: 63px;">
+				<ul class="breadcrumb" style="margin-bottom: 0px;background-color:var(--light);">
+					<li>
+						<a href="#">Dashboard</a>
+					</li>
+					<li><i class='bx bx-chevron-right' ></i></li>
+					<li>
+						<a class="active" href="{% url 'hod_home' %}" style="color:#1068c1;">Home</a>
+					</li>
+				</ul>
+			</button>
+		</div>
+<!--				<a href="#" class="btn-download">-->
+<!--					<i class='bx bxs-cloud-download' ></i>-->
+<!--					<span class="text">Download PDF</span>-->
+<!--				</a>-->
+		</div>
+
+		<ul class="box-info">
+			<li>
+				<i class='bx bxs-group' ></i>
+				<span class="text">
+					<h3>{{student_count}}</h3>
+					<p>Students</p>
+				</span>
+			</li>
+			<li>
+				<i class='bx bxs-group' ></i>
+				<span class="text">
+					<h3>{{staff_count}}</h3>
+					<p>Teachers</p>
+				</span>
+			</li>
+			<li>
+				<i class='bx bxs-book' ></i>
+				<span class="text">
+					<h3>{{course_count}}</h3>
+					<p>Courses</p>
+				</span>
+			</li>
+			<li>
+				<i class='bx bxs-book' ></i>
+				<span class="text">
+					<h3>{{subject_count}}</h3>
+					<p>Subjects</p>
+				</span>
+			</li>
+		</ul>
+		<br><br>
+		<!--piechart-->
+		<div class="row">
+			<div class="col-md-12 col-lg-6">
+				<div class="card card-chart" style="border-radius: 21px;">
+					<div class="card-header" style="border-radius: 21px;">
+						<div class="col-15">
+							<h5 class="card-title">All Data</h5>
+							<!-- The canvas element for the doughnut chart -->
+							<canvas id="myDoughnutChart" width="400" height="400"></canvas>
+
+							<script>
+							  // Function to draw the doughnut chart with animation
+							  function drawDoughnutChart() {
+								// Sample data for the doughnut chart
+								const data = {
+								  labels: ['Courses', 'Students', 'Subjects', 'Teachers'],
+								  datasets: [{
+									data: [{{course_count}}, {{student_count}}, {{subject_count}}, {{staff_count}}], // Example data values for each label
+									backgroundColor: ['#eb4e0c', '#0256a9', '#10912d', '#e9b400'], // Example colors for each segment
+								  }]
+								};
+
+								// Options for the doughnut chart with animation settings
+								const options = {
+								  responsive: true, // Adjusts to the container size
+								  animation: {
+									duration: 5000, // Animation duration in milliseconds (2 seconds)
+									easing: 'easeOutBounce' // Easing function for the animation (you can experiment with different easing options)
+								  }
+								};
+
+								// Get the canvas element
+								const canvas = document.getElementById('myDoughnutChart');
+
+								// Create the doughnut chart using Chart.js
+								const myDoughnutChart = new Chart(canvas, {
+								  type: 'doughnut',
+								  data: data,
+								  options: options
+								});
+							  }
+
+							  // Call the drawDoughnutChart function when the page has finished loading
+							  window.addEventListener('load', drawDoughnutChart);
+							</script>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<div id="stu_staff"></div>
+				</div>
+			</div>
+
+<!--		bargraph-->
+			<div class="col-md-12 col-lg-6" style="">
+				<div class="card card-chart" style="border-radius: 21px;">
+					<div class="card-header" style="border-radius: 21px;">
+						<div class="col-15" style="">
+							<h5 class="card-title">Gender</h5>
+							<!-- The canvas element for the doughnut chart -->
+							<canvas id="genderChart" width="400" height="400"></canvas>
+							<script>
+							  // Function to draw the bar graph with animation
+							  function drawBarGraphWithAnimation() {
+								// Sample data for the bar graph
+								const data = {
+								  labels: ['Students', 'Boy', 'Girl', 'Other'],
+								  datasets: [{
+									label: 'Total Students',
+									data: [{{student_count}}, {{student_gender_male}}, {{student_gender_female}}, 0],
+									backgroundColor: ['#007bffe6', '#f75827', '#f7c52f', '#0bcb27'], // Example colors for each bar
+									borderWidth: 1,
+									hoverOffset: 4,
+								  }],
+								};
+
+								// Options for the bar graph with animation settings
+								const options = {
+								  responsive: true,
+								  animation: {
+									duration: 5000, // Animation duration in milliseconds (2 seconds)
+									easing: 'easeOutBounce', // Easing function for the animation (you can experiment with different easing options)
+								  },
+								  scales: {
+									y: {
+									  beginAtZero: true,
+									},
+								  },
+								};
+
+								// Get the canvas element
+								const canvas = document.getElementById('genderChart');
+
+								// Create the bar graph using Chart.js
+								const myBarChart = new Chart(canvas, {
+								  type: 'bar',
+								  data: data,
+								  options: options,
+								});
+							  }
+
+							  // Call the drawBarGraphWithAnimation function when the page has finished loading
+							  window.addEventListener('load', drawBarGraphWithAnimation);
+							</script>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="table-data">
+			<div class="order">
+				<div class="head">
+					<h3>Recently Admitted Students</h3>
+<!--					<i class='bx bx-search' ></i>-->
+<!--					<i class='bx bx-filter' ></i>-->
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Student Name</th>
+							<th>Gender</th>
+							<th>Address</th>
+							<th>Email Address</th>
+							<th>Course</th>
+							<th>Session Year</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for i in recently_admitted_students %}
+						<tr>
+							<td>
+								<!-- Check if student profile_pic exists before accessing the URL -->
+								{% if i.admin.profile_pic %}
+									<img src="{{ i.admin.profile_pic.url }}" alt="Profile Pic">
+								{% else %}
+									<img src="/media/profile_pic/profile.png" alt="Default Profile Pic">
+								{% endif %}
+								<p style="margin-bottom: 0px;">{{i.admin.first_name}}&nbsp;{{i.admin.last_name}}</p>
+							</td>
+							<td>{{i.gender}}</td>
+							<td>{{i.address}}</td>
+							<td>{{i.admin.email}}</td>
+							<td>{{i.course_id.name}}</td>
+							<td>{{i.session_year_id.session_start}} to &nbsp;{{i.session_year_id.session_end}}</td>
+						</tr>
+					{% endfor%}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<br><br>
+		<div class="table-data" style="grid-gap: 2px;">
+			<div class="order">
+				<div class="head">
+					<h3>Recently Hired Teacher</h3>
+<!--					<i class='bx bx-search' ></i>-->
+<!--					<i class='bx bx-filter' ></i>-->
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Teacher</th>
+							<th>Gender</th>
+							<th>Address</th>
+							<th>Email</th>
+							<th>Course</th>
+							<th>Subject</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for i, subjects in staff_subjects_dict.items %}
+						<tr>
+							<td>
+								<!-- Check if staffs profile_pic exists before accessing the URL -->
+								{% if i.admin.profile_pic %}
+									<img src="{{ i.admin.profile_pic.url }}" alt="Profile Pic">
+								{% else %}
+									<img src="/media/profile_pic/profile.png" alt="Default Profile Pic">
+								{% endif %}
+								<p style="margin-bottom: 0px;">{{i.admin.first_name}}&nbsp;{{i.admin.last_name}}</p>
+							</td>
+							<td>{{i.gender}}</td>
+							<td>{{i.address}}</td>
+							<td>{{i.admin.email}}</td>
+							<td>
+								{% for subject in subjects %}
+									{% if forloop.first %}
+										{{ subject.course.name }}
+									{% endif %}
+								{% endfor %}
+							</td>
+							<td>
+								{% for subject in subjects %}
+								{{ subject.name }}{% if not forloop.last %}, {% endif %}
+							{% endfor %}
+							</td>
+						</tr>
+					{% endfor%}
+					</tbody>
+				</table>
+			</div>
+<!--			<div class="todo">-->
+<!--				<div class="head">-->
+<!--					<h3>Popular Teachers</h3>-->
+<!--					<i class='bx bx-plus' ></i>-->
+<!--					<i class='bx bx-filter' ></i>-->
+<!--				</div>-->
+<!--&lt;!&ndash;				<ul class="todo-list">&ndash;&gt;-->
+<!--&lt;!&ndash;					<li class="completed">&ndash;&gt;-->
+<!--&lt;!&ndash;						<p>Todo List</p>&ndash;&gt;-->
+<!--&lt;!&ndash;						<i class='bx bx-dots-vertical-rounded' ></i>&ndash;&gt;-->
+<!--&lt;!&ndash;					</li>&ndash;&gt;-->
+<!--&lt;!&ndash;					<li class="completed">&ndash;&gt;-->
+<!--&lt;!&ndash;						<p>Todo List</p>&ndash;&gt;-->
+<!--&lt;!&ndash;						<i class='bx bx-dots-vertical-rounded' ></i>&ndash;&gt;-->
+<!--&lt;!&ndash;					</li>&ndash;&gt;-->
+<!--&lt;!&ndash;					<li class="not-completed">&ndash;&gt;-->
+<!--&lt;!&ndash;						<p>Todo List</p>&ndash;&gt;-->
+<!--&lt;!&ndash;						<i class='bx bx-dots-vertical-rounded' ></i>&ndash;&gt;-->
+<!--&lt;!&ndash;					</li>&ndash;&gt;-->
+<!--&lt;!&ndash;					<li class="completed">&ndash;&gt;-->
+<!--&lt;!&ndash;						<p>Todo List</p>&ndash;&gt;-->
+<!--&lt;!&ndash;						<i class='bx bx-dots-vertical-rounded' ></i>&ndash;&gt;-->
+<!--&lt;!&ndash;					</li>&ndash;&gt;-->
+<!--&lt;!&ndash;					<li class="not-completed">&ndash;&gt;-->
+<!--&lt;!&ndash;						<p>Todo List</p>&ndash;&gt;-->
+<!--&lt;!&ndash;						<i class='bx bx-dots-vertical-rounded' ></i>&ndash;&gt;-->
+<!--&lt;!&ndash;					</li>&ndash;&gt;-->
+<!--&lt;!&ndash;				</ul>&ndash;&gt;-->
+<!--				<table>-->
+<!--					<thead>-->
+<!--						<tr>-->
+<!--							<th>Teacher</th>-->
+<!--							<th>Teacher</th>-->
+<!--&lt;!&ndash;							<th style="padding-bottom: 12px;font-size: 13px;text-align: left;border-bottom: 1px solid var(&#45;&#45;grey);">Teachers</th>&ndash;&gt;-->
+<!--&lt;!&ndash;							<th style="padding-bottom: 12px;font-size: 13px;text-align: left;border-bottom: 1px solid var(&#45;&#45;grey);"></th>&ndash;&gt;-->
+<!--&lt;!&ndash;							<th style="padding-bottom: 12px;font-size: 13px;text-align: left;border-bottom: 1px solid var(&#45;&#45;grey);">Subject</th>&ndash;&gt;-->
+<!--						</tr>-->
+<!--					</thead>-->
+<!--					<tbody>-->
+<!--&lt;!&ndash;						<tr>&ndash;&gt;-->
+<!--&lt;!&ndash;							<td>&ndash;&gt;-->
+<!--&lt;!&ndash;								<img src="/media/images/user.png" style="width: 36px;height: 36px;border-radius: 50%;object-fit: cover;">&ndash;&gt;-->
+<!--&lt;!&ndash;								<p>John Doe</p>&ndash;&gt;-->
+<!--&lt;!&ndash;							</td>&ndash;&gt;-->
+<!--&lt;!&ndash;							<td>Fundamental</td>&ndash;&gt;-->
+<!--&lt;!&ndash;						</tr>&ndash;&gt;-->
+
+<!--&lt;!&ndash;style="display: flex;align-items: center;grid-gap: 12px;padding-left: 6px;margin-top: 16px;margin-bottom: 23px;"&ndash;&gt;-->
+<!--						{% for i in student %}-->
+<!--						<tr>-->
+<!--							<td>-->
+<!--								<img src="/media/images/user.png">-->
+<!--								<p style="margin-bottom: 0px;">{{i.admin.first_name}}&nbsp;{{i.admin.last_name}}</p>-->
+<!--							</td>-->
+<!--							<td>{{i.gender}}</td>-->
+<!--							<td>{{i.course_id.name}}</td>-->
+<!--							<td>{{i.session_year_id.session_start}} to &nbsp;{{i.session_year_id.session_end}}</td>-->
+<!--						</tr>-->
+<!--					{% endfor%}-->
+<!--						<tr>-->
+<!--							<td style="display: flex;align-items: center;grid-gap: 12px;padding-left: 6px;margin-top: 4px;">-->
+<!--								<img src="/media/images/user.png" style="width: 36px;height: 36px;border-radius: 50%;object-fit: cover;">-->
+<!--								<p>Uddhav Dahal</p>-->
+<!--							</td>-->
+<!--							<td></td>-->
+<!--							<td>Software Enginering</td>-->
+<!--						</tr>-->
+<!--						<tr>-->
+<!--							<td style="display: flex;align-items: center;grid-gap: 12px;padding-left: 6px;margin-top: 16px;margin-bottom: 23px;">-->
+<!--								<img src="/media/images/user.png" style="width: 36px;height: 36px;border-radius: 50%;object-fit: cover;">-->
+<!--								<p>Rakesh Bachhan</p>-->
+<!--							</td>-->
+<!--							<td></td>-->
+<!--							<td>Numberical Method</td>-->
+<!--						</tr>-->
+
+<!--					</tbody>-->
+<!--				</table>-->
+<!--			</div>-->
+<!--		</div>-->
+		<br>
+		</div>
+
+
+{% endblock %}
+
